@@ -82,5 +82,5 @@ test:
 production:
   <<: *default
   database: secret_production
-  username: secret
+  username: ubuntu
   password: <%= ENV['SECRET_DATABASE_PASSWORD'] %>
