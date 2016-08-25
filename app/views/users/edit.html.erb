@@ -1,0 +1,29 @@
+<!-- edit.html.erb -->
+<h1>Edit User's Page</h1>
+<form action="/users/<%=@user.id%>" method="post">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>">
+	<input type="hidden" name="_method" value="patch">
+	<!-- <label for="first_name">First Name:</label>
+	<input type="text" id="first_name" name="user[first_name]" placeholder="First Name"> -->
+	<!-- <label for="last_name">Last Name:</label>
+	<input type="text"  id="last_name" name="user[last_name]" placeholder="Last Name"> -->
+	<label for="name">Name:</label>
+	<input type="text"  id="name" name="user[name]" value="<%=@user.name%>">
+	<label for="email">Email:</label>
+	<input type="text" id="email" name="user[email]" value="<%=@user.email%>">
+	<!--
+	<label for="password">Password:</label>
+	<input type="text" id="password" name="user[password]" placeholder="Password">
+	<label for="password_confirmation">Password Confirmation:</label>
+	<input type="text" id="password_confirmation" name="user[password_confirmation]" placeholder="Confirmation">
+	-->
+	<input type='submit' value='Update' />
+</form>
+<br><a href="/users/<%=@user.id%>"><button type="button">Back</button></a>
+<br><br>
+<form action="/users/<%=@user.id%>" method="post"> 
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>">
+	<input type='hidden' name='_method' value='delete'>
+	<input type="submit" value="Delete Account">
+</form>
+<!-- <a href="/users/<%= @user.id %>" data-method="delete"><button type="button">Delete Account</button></a> -->

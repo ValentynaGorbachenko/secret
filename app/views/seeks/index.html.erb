@@ -1,0 +1,40 @@
+<h1>Secrets</h1>
+<% if @secrets %>
+	<% @secrets.each do |s| %>
+		<p><%= s.content %></p>
+		<p><%= s.likes.count %> likes</p>
+		<% if @user %>
+			<!-- Like/Unlike Buttons for current user  if s.likes.where(user: @user).first-->
+			<% if s.users_liked.where("user_id = #{@user.id}").first %>
+				<!-- <a href="/seeks/<%= s.id %>"><button type="button">Like</button></a> -->
+				<form action="/likes/<%= s.id %>" method="post"> 
+					<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>">
+					<input type='hidden' name='_method' value='delete'>
+					<input type="submit" value="Unlike">
+				</form>
+			<% else %>
+				<form action="/likes/<%= s.id %>" method="post"> 
+					<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>">
+					<input type="submit" value="Like">
+				</form>
+			<% end %>
+			<!-- Delete button for current user-->
+			<% if @user.id == s.user.id%>
+			<form action="/seeks/<%= s.id %>" method="post"> 
+				<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>">
+				<input type='hidden' name='_method' value='delete'>
+				<input type="submit" value="Delete">
+			</form>
+			<% end %>
+
+		<% end %>
+
+	<% end %>
+
+<% end %>
+<% if @user %>
+	<a href="/users/<%=@user.id%>">Back To Your Page</a>
+<% else %>
+	<a href="/sessions/new">Log In</a>
+<% end %>
+

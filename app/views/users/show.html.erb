@@ -1,0 +1,32 @@
+<h1>User's page</h1>
+<% if @user %>
+	<h2><%= @user.name %></h2>
+	<p><a href="/users/<%= @user.id %>/edit"><button type="button">Edit Profile</button></a></p>
+
+	<form action="/seeks" method="post">
+		<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>">
+		<label for="name">New Secret:</label>
+		<input type="text" name="seek[content]" id ="name" plaeholder="Enter your new secret here">
+		<input type="submit" value="Create Secret">
+	</form>
+
+	<h2>All Your Secrets</h2>
+	<% @user.seeks.each do |s| %>
+		<p><%= s.content %></p>
+		<p><%= s.likes.count %> likes</p>
+		<!-- <a href="/seeks/<%= s.id %>" data-method="delete"><button type="button">Delete</button></a> -->
+		<form action="/seeks/<%= s.id %>" method="post"> 
+			<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token%>">
+			<input type='hidden' name='_method' value='delete'>
+			<input type="submit" value="Delete">
+		</form>
+	<% end %>
+	<h2>All Secrets Liked</h2>
+	<% @user.seeks_liked.each do |l| %>
+		<p><%= l.content %></p>
+		<p><%= l.likes.count %> likes</p>
+	<% end %>
+
+<% end %>
+<a href="/seeks"><button type="button">See All Secrets</button></a>
+<!-- <a href="/sessions/logout"><button type="button" name="logout">Log Out</button></a> <span>An ancor tag works with click_link and get method</span>-->
