@@ -2,6 +2,14 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :require_login, except: [:new, :create]
   before_action :require_correct_user, only: [:show, :edit, :update, :destroy]
+  def index
+    if current_user
+      redirect_to "users/#{current_user.id}"
+    else 
+      redirect_to "sessions/new"
+    end
+  end
+
   def show
     @seeks = Seek.all
     # if current_user

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'seeks/index'
+  root 'users#index'
 
   ################# SESSIONS ####################
 
